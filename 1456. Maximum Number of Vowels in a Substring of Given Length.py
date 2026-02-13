@@ -23,37 +23,52 @@
 
 class Solution:
     def maxVowels(self, s: str, k: int) -> int:
+        maxsum = 0
+        res = 0
+        #gets the num of vowels from 0 to k and stores in maxsum
+        for char in range(k): 
+            if self.isVowel(s[char]):
+                maxsum += 1 
+        res = maxsum
+
+        #immediately return maxsum if it equals k since k is also the max amount of vowels it can hold
+        if maxsum == k:
+            return maxsum 
+        
         point1 = 0
         point2 = k 
-        maxsum = 0
-        strlst = list(s)
-        for i in range(k):
-            if self.isVowel(strlst[i]):
+        
+        while point2 < len(s):
+            #if the first value is a vowel when you iterate up you lose a vowel from maxsum
+            if self.isVowel(s[point1]):
+                maxsum -= 1
+            #if the next value is a vowel you earn a maxsum value 
+            if self.isVowel(s[point2]):
                 maxsum += 1
-        if maxsum == k:
-            return k
-        else:  
-            while point1 < len(strlst)-k and point2 < len(strlst):
-    
-                if maxsum == k:
-                    return k
-                if self.isVowel(strlst[point2]) and self.isVowel(strlst[point1]):
-                    pass
-                elif self.isVowel(strlst[point2]) and self.isVowel(strlst[point1]) is not True:
-                    maxsum += 1 
-                elif self.isVowel(strlst[point2]) is not True and self.isVowel(strlst[point1]):
-                    maxsum -= 1
-                elif self.isVowel(strlst[point2]) is not True and self.isVowel(strlst[point1]) is not True:
-                    pass
-                point1 += 1
-                point2 += 1 
-                return k
-
+            
+            point1 += 1
+            point2 += 1
+            
+            #check if new maxsum is greater than old maxsum
+            res = max(maxsum, res)
+        return res
+            
+                    
     def isVowel(self, char):
         vowellst = 'aeiouAEIOU'
         if char in vowellst:
             return True
+
+        
+
+print("")
             
-c = Solution()
-maxVowel = c.maxVowels('leetcode', 3)
-print(maxVowel)
+obj1 = Solution()
+test1 = obj1.maxVowels("abciiidef", 3)
+test2 = obj1.maxVowels("aeiou", 2)
+test3 = obj1.maxVowels("leetcode", 3)
+print("---------------Test Cases:---------------")
+print(f"test1 output:{test1}, expected output: 3")
+print(f"test2 output:{test2}, expected output: 2")
+print(f"test3 output:{test3}, expected output: 2")
+print("   runtime approx: 87ms, Solved: T     ")
