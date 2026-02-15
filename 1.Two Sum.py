@@ -20,18 +20,23 @@
 # Input: nums = [3,3], target = 6
 # Output: [0,1]
 
-from collections import defaultdict
+
+#thoughts:
+#create a dict enumerated with all the values and their corresponding indices
+#have a secondval var that holds the value of target - nth element if its smaller than target
+#return the indices if the second val is found
+
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        d = defaultdict(int)
-        secondval = 0
-        for i in range(len(nums)):
-            d[i] += (nums[i])
-    
-        for key in d:
-            secondval = target - key
-            if secondval in d:
-                return d[key], d[secondval] 
+        d = dict(enumerate(nums))
+        secondvallst = []
+
+        for num in nums: 
+            if target-num > 0:
+                secondvallst += target-num
+        for i in range (len(secondvallst)):
+            if secondvallst[i] in d.values():
+                return i 
 
 
 c = Solution()
