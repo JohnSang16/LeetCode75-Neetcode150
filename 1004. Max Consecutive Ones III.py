@@ -16,8 +16,11 @@
 # Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
  
 
-#thought process
-
+#thought process:
+#check if substr of 1's has less then k amount of 0's in between the next substr of 1's
+#if so flip 0's
+#keep doing this until k is 0 
+#see how long that substr is and compare with another version doing the same with the next set of kth zeroes
 
 class Solution:
     def longestOnes(self, nums: List[int], k: int) -> int:
