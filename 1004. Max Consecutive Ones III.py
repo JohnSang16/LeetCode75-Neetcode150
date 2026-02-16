@@ -17,36 +17,43 @@
  
 
 #thought process:
-#check if substr of 1's has less then k amount of 0's in between the next substr of 1's
-#if so flip 0's
-#keep doing this until k is 0 
-#see how long that substr is and compare with another version doing the same with the next set of kth zeroes
-
+#use a start and end pointer as a sliding window
+#the movement of the window is determined by k
+#if k becomes less then 0 by flipping 0's, then the start moves up until it sits on the next 0
+#store maxlen in a max method
+#return maxlen
 
 class Solution:
     def longestOnes(self, nums: list[int], k: int) -> int:
-        i = 0
-        iterator = 0
+        start = 0
+        end = 0
         maxlen = 0
-        initk = k
-        while i < len(nums):
-            if nums[i] == 1:
-                iterator += 1 
-            else:
-                iterator += 1 
-                k -= 1
+        #end determines when while loop ends
+        while end < len(nums):
+            #checks if end sits on a 0 if so subtract k (flipping 0)
+            if nums[end] == 0:
+                k-=1
 
-            if k == 0:
-                maxlen = max(maxlen, iterator)
-                iterator = 0
-                k = initk
-            
-            i += 1 
+            #if k becomes < 0 then move start up til next 0 
+            while k < 0:
+                if nums[start] == 0:
+                    k += 1
+                start +=1
+
+            maxlen = max(maxlen, end - start + 1)
+            end += 1
         return maxlen
-    
 
+ 
 c = Solution()
 testone = c.longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2)
-print(f"test one: {testone}, expected: 6")
 testtwo = c.longestOnes([0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], 3)
+testthree = c.longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2)
+testfour = c.longestOnes([0,0,1,1,1,0,0],0) 
+
+print("---------------Test Cases:---------------")
+print(f"test one: {testone}, expected: 6")
 print(f"test two: {testtwo}, expected: 10")
+print(f"test three: {testthree}, expected: 6")
+print(f"test four: {testfour}, expected: 3")
+print("   runtime approx: 71ms, Solved: T     ")
