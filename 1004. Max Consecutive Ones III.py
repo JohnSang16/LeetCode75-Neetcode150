@@ -22,5 +22,29 @@
 #keep doing this until k is 0 
 #see how long that substr is and compare with another version doing the same with the next set of kth zeroes
 
+
 class Solution:
-    def longestOnes(self, nums: List[int], k: int) -> int:
+    def longestOnes(self, nums: list[int], k: int) -> int:
+        i = 0
+        iterator = 0
+        maxlen = 0
+        initk = k
+        while i < len(nums):
+            if nums[i] == 1:
+                iterator += 1 
+            else:
+                iterator += 1 
+                k -= 1
+
+            if k == 0:
+                maxlen = max(maxlen, iterator)
+                iterator = 0
+                k = initk
+            
+            i += 1 
+        return maxlen
+    
+
+c = Solution()
+c.longestOnes([1,1,1,0,0,0,1,1,1,1,0], 2)
+print(f"test one: {c}")
