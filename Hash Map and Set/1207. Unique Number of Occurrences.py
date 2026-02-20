@@ -24,24 +24,12 @@ class Solution:
         dictForCount = {}
 
         for num in arr: 
-            if num not in dictForCount:
-                dictForCount[num] = 1
-            else:
-                dictForCount[num] += 1
-        
-        dictVal = list(dictForCount.values())
-        seen = set()
+            dictForCount[num] = dictForCount.get(num, 0) + 1
 
-        for val in dictVal:
-            if val not in seen:
-                seen.add(val)
-            else:
-                pass
+        seen = set(dictForCount.values())
         
-        if len(seen) != len(dictVal):
-            return False
-        else:
-            return True
+        return len(seen) == len(dictForCount.values())
+            
 
 
 
