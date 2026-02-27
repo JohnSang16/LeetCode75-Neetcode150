@@ -4,7 +4,7 @@
 #for every index the list contains the vals that correspond by 
 #having an equal count as the index num 
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    def topKFrequent(self, nums: list[int], k: int) -> list[int]:
         counterdict = dict()
         freq = [[] for i in range(len(nums) + 1)]
         #[[],[],[],[],[],[],[]]
